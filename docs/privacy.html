@@ -7,28 +7,159 @@
     <title>Privacy Policy / 隐私政策 - Day Buddy</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .lang-section {
-            margin-bottom: 4rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid #eee;
+        body {
+            background-color: #f7f9fc;
+            padding: 2rem 1rem;
         }
 
-        .lang-switch-btn {
-            display: inline-block;
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .lang-section {
+            display: none;
+            /* Hide by default */
+        }
+
+        .lang-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 2rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--text-light);
+        }
+
+        .lang-switch-container {
+            text-align: right;
             margin-bottom: 1rem;
-            color: var(--primary);
-            text-decoration: none;
+        }
+
+        .btn-switch {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #f1f2f6;
+            color: var(--text-main);
+            border-radius: 20px;
             font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-switch:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.2);
+        }
+
+        section {
+            margin-bottom: 2.5rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 6px;
+            bottom: 6px;
+            width: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        p,
+        li {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        ul {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        strong {
+            color: var(--text-main);
+        }
+
+        code {
+            background: #f1f2f6;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+            color: var(--primary);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 1.5rem;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 
 <body>
     <div class="container">
+        <!-- Navigation Bar for Language -->
+        <div class="lang-switch-container">
+            <button onclick="switchLang('en')" class="btn-switch" id="btn-en">🇺🇸 English</button>
+            <button onclick="switchLang('zh')" class="btn-switch" id="btn-zh">🇨🇳 中文</button>
+        </div>
+
         <!-- English Section -->
-        <div class="lang-section" id="en">
+        <div class="lang-section active" id="en-content">
             <header>
-                <a href="#zh" class="lang-switch-btn">🇨🇳 Switch into Chinese (切换到中文)</a>
                 <h1>Privacy Policy</h1>
                 <p>Last updated: January 2, 2026</p>
             </header>
@@ -50,68 +181,40 @@
 
                 <section>
                     <h2>3. Cloud Backup (WebDAV)</h2>
-                    <p>You may verify the "Data Safety" section in Google Play. We declare that we do not collect user
-                        data.</p>
-                    <p>However, the app offers an optional <strong>WebDAV Backup</strong> feature. If you explicitly
-                        enable and configure this feature:</p>
+                    <p>The app offers an optional <strong>WebDAV Backup</strong> feature. We verify the "Data Safety"
+                        section in Google Play declaring we do not collect user data.</p>
+                    <p>If you explicitly enable and configure this feature:</p>
                     <ul>
                         <li>Your data (database backup) is encrypted and uploaded to <strong>your own</strong> private
-                            WebDAV server (e.g., Nextcloud, ownCloud, or other providers).</li>
-                        <li>We (the developer) have <strong>no access</strong> to your WebDAV credentials or the files
-                            stored on your server.</li>
-                        <li>Your WebDAV password is securely stored on your device using Android's
-                            <code>EncryptedSharedPreferences</code> and is never transmitted to us.</li>
+                            WebDAV server (e.g., Nextcloud, ownCloud).</li>
+                        <li>We (the developer) have <strong>no access</strong> to your credentials or files.</li>
+                        <li>Your WebDAV password is securely stored using Android's
+                            <code>EncryptedSharedPreferences</code>.</li>
                     </ul>
                 </section>
 
                 <section>
                     <h2>4. Device Permissions</h2>
-                    <p>To function correctly, Day Buddy requests the following permissions:</p>
                     <ul>
-                        <li><strong>Alarms & Reminders (SCHEDULE_EXACT_ALARM):</strong> Required to send you precise
-                            notifications for your scheduled events.</li>
-                        <li><strong>Boot Completed:</strong> Required to reschedule your reminders automatically after
-                            you restart your device.</li>
-                        <li><strong>Notifications:</strong> Required to display alerts in your system notification tray.
-                        </li>
-                        <li><strong>Internet:</strong> Required <em>only</em> if you use the WebDAV backup feature to
-                            connect to your specified server.</li>
-                        <li><strong>Vibration:</strong> Used for haptic feedback during notifications.</li>
+                        <li><strong>Alarms & Reminders (SCHEDULE_EXACT_ALARM):</strong> Exact timing for your event
+                            notifications.</li>
+                        <li><strong>Boot Completed:</strong> Reschedule reminders after device restart.</li>
+                        <li><strong>Notifications:</strong> Display alerts in the system tray.</li>
+                        <li><strong>Internet:</strong> Required <em>only</em> for connecting to your WebDAV server.</li>
                     </ul>
                 </section>
 
                 <section>
-                    <h2>5. Security</h2>
-                    <p>We implement industry-standard security measures to protect your local data. Specifically,
-                        sensitive information such as your WebDAV password is encrypted using the Android Jetpack
-                        Security library.</p>
-                </section>
-
-                <section>
-                    <h2>6. Children's Privacy</h2>
-                    <p>Our application does not knowingly collect or solicit personal information from anyone under the
-                        age of 13. As the app functions offline and does not collect data, it is safe for all ages.</p>
-                </section>
-
-                <section>
-                    <h2>7. Changes to This Privacy Policy</h2>
-                    <p>We may update our Privacy Policy from time to time. Thus, you are advised to review this page
-                        periodically for any changes. We will notify you of any changes by posting the new Privacy
-                        Policy on this page.</p>
-                </section>
-
-                <section>
-                    <h2>8. Contact Us</h2>
-                    <p>If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us
-                        at <a href="mailto:zfdang@gmail.com">zfdang@gmail.com</a>.</p>
+                    <h2>5. Contact Us</h2>
+                    <p>If you have any questions, please contact us at <a
+                            href="mailto:dantifer@gmail.com">dantifer@gmail.com</a>.</p>
                 </section>
             </main>
         </div>
 
         <!-- Chinese Section -->
-        <div class="lang-section" id="zh">
+        <div class="lang-section" id="zh-content">
             <header>
-                <a href="#en" class="lang-switch-btn">🇺🇸 Switch into English (切换到英文)</a>
                 <h1>隐私政策 (Privacy Policy)</h1>
                 <p>更新日期：2026年1月2日</p>
             </header>
@@ -119,64 +222,66 @@
             <main>
                 <section>
                     <h2>1. 简介</h2>
-                    <p>欢迎使用 <strong>叮咚日历 (Day Buddy)</strong>（以下简称“我们”）。我们要致力于保护您的隐私。本隐私政策旨在说明我们的应用如何处理您的数据并尊重您的权利。</p>
+                    <p>欢迎使用 <strong>叮咚日历 (Day Buddy)</strong>。我们致力于保护您的隐私，本政策说明我们如何处理您的数据。</p>
                 </section>
 
                 <section>
                     <h2>2. 数据收集与存储</h2>
-                    <p><strong>我们不会在我们的服务器上收集、存储或共享您的任何个人数据。</strong></p>
-                    <p>Day Buddy 是一款“本地优先”的应用程序。您的所有事件、提醒和设置均使用内部数据库存储在您的设备本地。</p>
+                    <p><strong>我们不会在服务器上收集、存储或共享您的任何个人数据。</strong></p>
+                    <p>Day Buddy 是一款“本地优先”的应用。您的所有数据均存储在您的设备本地。</p>
                 </section>
 
                 <section>
                     <h2>3. 云备份 (WebDAV)</h2>
-                    <p>您可以查阅 Google Play 中的“数据安全”部分。我们声明不收集用户数据。</p>
-                    <p>但是，本应用提供可选的 <strong>WebDAV 备份</strong>功能。如果您明确启用并配置了此功能：</p>
+                    <p>本应用提供可选的 <strong>WebDAV 备份</strong>功能：</p>
                     <ul>
-                        <li>您的数据（数据库备份）将被加密并上传到<strong>您自己的</strong>私有 WebDAV 服务器（例如 Nextcloud、ownCloud 或其他提供商）。</li>
-                        <li>我们（开发者）<strong>无法访问</strong>您的 WebDAV 凭据或您服务器上存储的文件。</li>
-                        <li>您的 WebDAV 密码使用 Android 的 <code>EncryptedSharedPreferences</code> 安全存储在您的设备上，绝不会传输给我们。</li>
+                        <li>您的数据仅加密上传至<strong>您自己的</strong> WebDAV 服务器。</li>
+                        <li>开发者<strong>无法访问</strong>您的账号或文件。</li>
+                        <li>密码使用 <code>EncryptedSharedPreferences</code> 安全存储。</li>
                     </ul>
                 </section>
 
                 <section>
                     <h2>4. 设备权限</h2>
-                    <p>为了正常运行，Day Buddy 请求以下权限：</p>
                     <ul>
-                        <li><strong>闹钟与提醒 (SCHEDULE_EXACT_ALARM)：</strong> 用于为您安排的事件发送精确的通知。</li>
-                        <li><strong>开机启动 (Boot Completed)：</strong> 用于在您重启设备后自动重新安排提醒任务。</li>
-                        <li><strong>通知：</strong> 用于在系统通知栏中显示提醒。</li>
-                        <li><strong>互联网 (Internet)：</strong> 仅在您使用 WebDAV 备份功能连接到指定服务器时需要。</li>
-                        <li><strong>振动：</strong> 用于通知时的触感反馈。</li>
+                        <li><strong>闹钟与提醒：</strong> 发送精准通知。</li>
+                        <li><strong>开机启动：</strong> 重启后自动恢复提醒。</li>
+                        <li><strong>互联网：</strong> 仅用于连接您的 WebDAV 备份服务器。</li>
                     </ul>
                 </section>
 
                 <section>
-                    <h2>5. 安全性</h2>
-                    <p>我们实施行业标准的安全措施来保护您的本地数据。具体而言，敏感信息（如您的 WebDAV 密码）使用 Android Jetpack Security 库进行加密存储。</p>
-                </section>
-
-                <section>
-                    <h2>6. 儿童隐私</h2>
-                    <p>我们的应用程序不会有意收集或索取 13 岁以下任何人的个人信息。由于该应用离线运行且不收集数据，因此对所有年龄段的用户都是安全的。</p>
-                </section>
-
-                <section>
-                    <h2>7. 隐私政策的变更</h2>
-                    <p>我们可能会不时更新我们的隐私政策。因此，建议您定期查看本页面以了解任何更改。我们将通过在此页面上发布新的隐私政策来通知您任何更改。</p>
-                </section>
-
-                <section>
-                    <h2>8. 联系我们</h2>
-                    <p>如果您对我们的隐私政策有任何疑问或建议，请随时通过 <a href="mailto:zfdang@gmail.com">zfdang@gmail.com</a> 联系我们。</p>
+                    <h2>5. 联系我们</h2>
+                    <p>如有疑问，请通过 <a href="mailto:dantifer@gmail.com">dantifer@gmail.com</a> 联系我们。</p>
                 </section>
             </main>
         </div>
 
-        <footer>
+        <footer style="text-align: center; margin-top: 3rem; color: #aaa; font-size: 0.9rem;">
             <p>&copy; 2026 Day Buddy. All rights reserved.</p>
-            <p><a href="index.html">Home</a> | <a href="privacy.html">Privacy Policy</a></p>
+            <p><a href="index.html">Home</a></p>
         </footer>
+
+        <script>
+            function switchLang(lang) {
+                // Hide all sections
+                document.querySelectorAll('.lang-section').forEach(el => el.classList.remove('active'));
+                // Show target section
+                document.querySelector('#' + lang + '-content').classList.add('active');
+
+                // Update URL hash without scrolling
+                history.replaceState(null, null, '#' + lang);
+            }
+
+            // Check URL hash on load
+            window.onload = function () {
+                if (window.location.hash === '#zh') {
+                    switchLang('zh');
+                } else {
+                    switchLang('en');
+                }
+            }
+        </script>
     </div>
 </body>
 
